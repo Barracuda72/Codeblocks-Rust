@@ -1,0 +1,174 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// Rust Cargo project wizard
+//
+////////////////////////////////////////////////////////////////////////////////
+
+// globals
+RustPathDefault    <- _T("$(#rust)");
+RustPath <- _T("");
+RustCrateType <- -1;
+
+function BeginWizard()
+{
+    local intro_msg = _T("Welcome to the new Rust Cargo project wizard!\n" +
+                         "This wizard will guide you to create a new Cargo project\n\n" +
+                         "When you're ready to proceed, please click \"Next\"...");
+
+    local rustpath_msg = _T("Please select the location of Rust and Cargo on your computer.\n" +
+                          "This is the top-level folder where Rust was installed.\n" +
+                          "To help you, this folder must contain the subfolders\n" +
+                          "\"bin\" and \"lib\".");
+
+    local cratetype_msg = _T("Select type of the crate that you want to create.\n\n" +
+                            "");
+
+    Wizard.AddInfoPage(_T("RustIntro"), intro_msg);
+    Wizard.AddProjectPathPage();
+    Wizard.AddGenericSelectPathPage(_T("RustPath"), rustpath_msg, _T("Rust's location:"), RustPathDefault);
+    Wizard.AddGenericSingleChoiceListPage(_T("CrateType"), cratetype_msg, _T("Binary;Library"), 0);
+    Wizard.AddCompilerPage(_T(""), _T("rust*"), true, true);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Rust's compler page
+////////////////////////////////////////////////////////////////////////////////
+
+function OnEnter_CompilerPage(fwd)
+{
+    if (fwd)
+    {
+        // TODO: doesn't work for some reason
+        Wizard.SetTextControlValue(_T("txtRelOut"), _T("target/release/"));
+        Wizard.SetTextControlValue(_T("txtDbgOut"), _T("target/debug/"));
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Rust's crate type page
+////////////////////////////////////////////////////////////////////////////////
+
+function OnLeave_CrateType(fwd)
+{
+    if (fwd)
+    {
+        RustCrateType = Wizard.GetListboxSelection(_T("GenericChoiceList"));
+
+        if (RustCrateType != 0 && RustCrateType != 1)
+            return false;
+    }
+
+    return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Rust's path page
+////////////////////////////////////////////////////////////////////////////////
+
+function OnLeave_RustPath(fwd)
+{
+    if (fwd)
+    {
+        local dir         = Wizard.GetTextControlValue(_T("txtFolder")); // txtFolder is the text control in GenericSelectPathPage
+        local dir_nomacro = VerifyDirectory(dir);
+
+        if (dir_nomacro.IsEmpty())
+            return false;
+
+        // TODO: verify dependencies
+    }
+    return true;
+}
+
+// return the files this project contains
+function GetFilesDir()
+{
+    return _T("rust/files");
+}
+
+// setup the already created project
+function SetupProject(project)
+{
+    //enable using of custom makefile
+    project.SetMakefileCustom(true);
+
+    local type = _T("");
+    local file = _T("");
+
+    // create new crate
+    if (RustCrateType == 0) // Binary
+    {
+      type = _T("--bin");
+      file = _T("main.rs");
+    } else if (RustCrateType == 1) { // Library
+      type = _T("--lib");
+      file = _T("lib.rs");
+    } else {
+      // Should not happen
+      type = _T("--unk");
+      file = _T("unk.rs");
+    }
+    IO.Execute(_T("cargo init ") + type + _T(" ") + Wizard.GetProjectPath() + Wizard.GetProjectName());
+
+    // Add generated files to project
+    local full_filename = Wizard.GetProjectPath() + Wizard.GetProjectName() + _T("/src/") + file;
+    local pf = null;
+    
+    //setting make commands for project and targets
+    project.SetMakeCommandFor(mcBuild, _T("cargo build"));
+    project.SetMakeCommandFor(mcCompileFile, _T("TODO this is not supported (yet)"));
+    project.SetMakeCommandFor(mcClean, _T("cargo clean"));
+    project.SetMakeCommandFor(mcDistClean, _T("TODO this is not supported (yet)"));
+
+    // enable compiler warnings (project-wide)
+    WarningsOn(project, Wizard.GetCompilerID());
+
+    // Debug
+    local debug_target = project.GetBuildTarget(Wizard.GetDebugName());
+    if (!IsNull(debug_target))
+    {
+        debug_target.SetTargetType(ttConsoleOnly); // ttConsoleOnly: console for debugging
+        // TODO: fix the problem in the OnEnter_CompilerPage and remove this
+        // hack
+        //debug_target.SetOutputFilename(Wizard.GetDebugOutputDir() + Wizard.GetProjectName() + DOT_EXT_EXECUTABLE);
+        debug_target.SetOutputFilename(_T("target/debug/") + Wizard.GetProjectName() + DOT_EXT_EXECUTABLE);
+        // enable generation of debugging symbols for target
+        DebugSymbolsOn(debug_target, Wizard.GetCompilerID());
+        
+	      //setting make commands for target
+	      debug_target.SetMakeCommandFor(mcBuild, _T("cargo build --message-format short"));
+    	  debug_target.SetMakeCommandFor(mcCompileFile, _T("TODO this is not supported (yet)"));
+	      debug_target.SetMakeCommandFor(mcClean, _T("cargo clean --message-format short"));
+    	  debug_target.SetMakeCommandFor(mcDistClean, _T("TODO this is not supported (yet)"));
+
+	      debug_target.SetOptionRelation(ortIncludeDirs, orUseParentOptionsOnly);    
+        pf = project.AddFile(Wizard.GetDebugName(), full_filename);
+    }
+
+    // Release
+    local release_target = project.GetBuildTarget(Wizard.GetReleaseName());
+    if (!IsNull(release_target))
+    {
+        release_target.SetTargetType(ttExecutable); // ttExecutable: no console
+        // TODO: fix the problem in the OnEnter_CompilerPage and remove this
+        // hack
+        //release_target.SetOutputFilename(Wizard.GetReleaseOutputDir() + Wizard.GetProjectName() + DOT_EXT_EXECUTABLE);
+        release_target.SetOutputFilename(_T("target/release/") + Wizard.GetProjectName() + DOT_EXT_EXECUTABLE);
+        // enable optimizations for target
+        OptimizationsOn(release_target, Wizard.GetCompilerID());
+
+        //setting make commands for target
+        release_target.SetMakeCommandFor(mcBuild, _T("cargo build --release --message-format short"));
+    	  release_target.SetMakeCommandFor(mcCompileFile, _T("TODO this is not supported (yet)"));
+    	  release_target.SetMakeCommandFor(mcClean, _T("cargo clean --release --message-format short"));
+    	  release_target.SetMakeCommandFor(mcDistClean, _T("TODO this is not supported (yet)"));
+
+    	  release_target.SetOptionRelation(ortIncludeDirs, orUseParentOptionsOnly);
+        if (pf == null)
+          project.AddFile(Wizard.GetReleaseName(), full_filename);
+        else
+          pf.AddBuildTarget(Wizard.GetReleaseName());
+    }
+    
+    return true;
+}

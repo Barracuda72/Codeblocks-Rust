@@ -1,0 +1,149 @@
+﻿<?xml version="1.0"?>
+<!DOCTYPE CodeBlocks_compiler_options>
+<CodeBlocks_compiler_options>
+    <if platform="windows">
+        <Program name="C"         value="rustc.exe"/>
+        <Program name="CPP"       value="rustc.exe"/>
+        <Program name="LD"        value="rustc.exe"/>
+        <Program name="DBGconfig" value=""/>
+        <Program name="LIB"       value="lib.exe"/>
+        <Program name="WINDRES"   value="rcc.exe"/>
+        <Program name="MAKE"      value="make.exe"/>
+
+        <Switch name="includeDirs"             value="-I"/>
+        <Switch name="libDirs"                 value=""/>
+        <Switch name="linkLibs"                value=""/>
+        <Switch name="defines"                 value="-version="/>
+        <Switch name="genericSwitch"           value="-"/>
+        <Switch name="objectExtension"         value="obj"/>
+        <Switch name="needDependencies"        value="false"/>
+        <Switch name="forceCompilerUseQuotes"  value="false"/>
+        <Switch name="forceLinkerUseQuotes"    value="true"/>
+        <Switch name="logging"                 value="default"/>
+        <Switch name="libPrefix"               value=""/>
+        <Switch name="libExtension"            value="lib"/>
+        <Switch name="linkerNeedsLibPrefix"    value="false"/>
+        <Switch name="linkerNeedsLibExtension" value="true"/>
+
+        <Command name="CompileResource"
+                 value="$rescomp -o$resource_output $res_options $res_includes $file -32 -r"/>
+        <Command name="LinkExe"
+                 value="$linker $exe_output $link_options $link_objects $link_resobjects $libs"/>
+        <Command name="LinkConsoleExe"
+                 value="$linker $exe_output $link_options $link_objects $link_resobjects $libs"/>
+        <Command name="LinkNative"
+                 value="$linker $exe_output $link_options $link_objects $link_resobjects $libs"/>
+    </if>
+    <else>
+        <Program name="C"         value="rustc"/>
+        <Program name="CPP"       value="rustc"/>
+        <Program name="LD"        value="ld"/>
+        <Program name="DBGconfig" value="gdb_debugger:Default"/>
+        <Program name="LIB"       value="ar"/>
+        <Program name="WINDRES"   value=""/>
+        <Program name="MAKE"      value="make"/>
+
+        <Switch name="includeDirs"             value="-I"/>
+        <Switch name="libDirs"                 value="-L-L"/>
+        <Switch name="linkLibs"                value="-L-l"/>
+        <Switch name="defines"                 value="-version="/>
+        <Switch name="genericSwitch"           value="-"/>
+        <Switch name="objectExtension"         value="o"/>
+        <Switch name="needDependencies"        value="false"/>
+        <Switch name="forceCompilerUseQuotes"  value="false"/>
+        <Switch name="forceLinkerUseQuotes"    value="false"/>
+        <Switch name="logging"                 value="default"/>
+        <Switch name="libPrefix"               value="lib"/>
+        <Switch name="libExtension"            value="a"/>
+        <Switch name="linkerNeedsLibPrefix"    value="false"/>
+        <Switch name="linkerNeedsLibExtension" value="false"/>
+
+        <Command name="CompileResource"
+                 value=""/>
+        <Command name="LinkExe"
+                 value="$linker -o $exe_output $link_options $link_objects $libs"/>
+        <Command name="LinkConsoleExe"
+                 value="$linker -o $exe_output $link_options $link_objects $libs"/>
+        <Command name="LinkNative"
+                 value="$linker -o $exe_output $link_options $link_objects $libs"/>
+    </else>
+    <Command name="CompileObject"
+             value="$compiler $options $includes --emit=obj $file -o $object"/>
+    <Command name="LinkDynamic"
+             value="$linker $exe_output $link_options $link_objects $libs $link_resobjects"/>
+    <Command name="LinkStatic"
+             value="$lib_linker $link_options $static_output $link_objects"/>
+
+    <Category name="Rust Features">
+        <Option name="don't let linker strip dead code"
+                option="-C link-dead-code"/>
+        <Option name="save all temporary output files during compilation"
+                option="-C save-temps"/>
+        <Option name="set rpath values in libs/exes"
+                option="-C rpath"/>
+        <Option name="don't pre-populate the pass manager with a list of passes"
+                option="-C no-prepopulate-passes"/>
+        <Option name="don't run the loop vectorization optimization passes"
+                option="-C no-vectorize-loops"/>
+        <Option name="don't run LLVM's SLP vectorization pass"
+                option="-C no-vectorize-slp"/>
+        <Option name="use soft float ABI"
+                option="-C soft-float"/>
+        <Option name="prefer dynamic linking to static linking"
+                option="-C prefer-dynamic"/>
+        <Option name="use an external assembler rather than LLVM's integrated one"
+                option="-C no-integrated-as"/>
+        <Option name="abort on panic (e.g. in no_std environment)"
+                option="-C panic=abort"/>
+    </Category>
+
+    <Category name="Debugging">
+        <Option name="compile in debug code"
+                option="-C opt-level=0"
+                supersedes="-C opt-level=2"/>
+        <Option name="add symbolic debug info"
+                option="-C debuginfo=2"
+                supersedes="-C debuginfo=0"/>
+    </Category>
+
+    <Category name="Others">
+        <Option name="suppress non-essential compiler messages"
+                option="-quiet"
+                supersedes="-v"/>
+        <Option name="verbose"
+                option="-v"
+                supersedes="-quiet"/>
+        <Option name="enable warnings"
+                option="-w"/>
+    </Category>
+
+    <Category name="Optimize">
+        <Option name="optimize"
+                option="-O"/>
+    </Category>
+
+    <RegEx name="Compiler warning"
+           type="warning"
+           msg="5"
+           file="1"
+           line="2">
+        <![CDATA[([^:]+):([0-9]+):([0-9]+): warning([^:]*): (.*)]]>
+    </RegEx>
+    <RegEx name="Compiler error"
+           type="error"
+           msg="5"
+           file="1"
+           line="2">
+        <![CDATA[([^:]+):([0-9]+):([0-9]+): error([^:]*): (.*)]]>
+    </RegEx>
+    <RegEx name="Cargo warning"
+           type="warning"
+           msg="1">
+        <![CDATA[^warning: (.*)]]>
+    </RegEx>
+    <RegEx name="Cargo error"
+           type="error"
+           msg="1">
+        <![CDATA[^error: (.*)]]>
+    </RegEx>
+</CodeBlocks_compiler_options>

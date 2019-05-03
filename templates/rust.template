@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE CodeBlocks_template_file>
+<CodeBlocks_template_file>
+	<Template name="RustCargo" title="Rust Cargo Application" category="Console" bitmap="rust.png">
+		<FileSet name="s" title="Default">
+			<!-- <File source="rust-main.rs" destination="main.rs"/> -->
+		</FileSet>
+		<Option name="Rust Cargo Application">
+			<Project file="rust.cbp"/>
+		</Option>
+	</Template>
+</CodeBlocks_template_file>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0"?>
+<!DOCTYPE CodeBlocks_compiler>
+<CodeBlocks_compiler name="Rust Compiler"
+                     id="rust"
+                     weight="84">
+    <Path type="master">
+        <Search envVar="PATH"
+                for="C"/>
+        <if platform="windows">
+            <Fallback path="C:\rust"/>
+        </if>
+        <else>
+            <Search path="/usr/local/bin"
+                    for="C"/>
+            <Fallback path="/usr"/>
+        </else>
+    </Path>
+    <Path type="lib">
+        <Add><master/><separator/>lib</Add>
+    </Path>
+</CodeBlocks_compiler>

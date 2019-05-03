@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+<!DOCTYPE CodeBlocks_lexer_properties>
+<CodeBlocks_lexer_properties>
+        <Lexer name="Rust"
+                index="111"
+                filemasks="*.rs">
+
+                <!-- Default style -->
+                <Style name="Default"
+                        index="0"
+                        fg="0,0,0"
+                        bg="255,255,255"
+                        bold="0"
+                        italics="0"
+                        underlined="0"/>
+                <Style name="Default (inactive)"
+                        index="64"
+                        fg="200,200,200"/>
+
+                <!-- Comments -->
+                <Style name="Comment (normal)"
+                        index="1"
+                        fg="160,160,160"/>
+                <Style name="Comment line (normal)"
+                        index="2"
+                        fg="190,190,230"/>
+                <Style name="Comment (documentation)"
+                        index="3"
+                        fg="128,128,255"
+                        bold="1"/>
+                <Style name="Comment line (documentation)"
+                        index="4"
+                        fg="128,128,255"
+                        bold="1"/>
+
+                <Style name="Number"
+                        index="5"
+                        fg="240,0,240"/>
+                <Style name="Number (inactive)"
+                        index="69"
+                        fg="240,200,240"/>
+
+                <!-- All keywords -->
+                <Style name="Keyword"
+                        index="6,7,8,9,10,11,12"
+                        fg="0,0,160"
+                        bold="1"/>
+                <Style name="Keyword (inactive)"
+                        index="70,71,72,73,74,75,76"
+                        fg="135,135,200"
+                        bold="1"/>
+
+                <!-- Strings and characters -->
+                <Style name="String"
+                        index="13"
+                        fg="0,0,255"/>
+                <Style name="String (inactive)"
+                        index="77"
+                        fg="190,190,255"/>
+                <Style name="Raw String"
+                        index="14"
+                        fg="0,0,255"/>
+                <Style name="Raw String (inactive)"
+                        index="78"
+                        fg="190,190,255"/>
+                <Style name="Character"
+                        index="15"
+                        fg="224,160,0"/>
+                <Style name="Character (inactive)"
+                        index="79"
+                        fg="224,206,159"/>
+
+                <Style name="Operator"
+                        index="16"
+                        fg="255,0,0"/>
+                <Style name="Operator (inactive)"
+                        index="80"
+                        fg="255,200,200"/>
+                <Style name="Identifier"
+                        index="17"
+                        fg="0,160,0"/>
+                <Style name="Identifier (inactive)"
+                        index="81"
+                        fg="132,160,132"/>
+                <Style name="Lifetime"
+                        index="18"
+                        fg="0,160,0"/>
+                <Style name="Lifetime (inactive)"
+                        index="82"
+                        fg="132,160,132"/>
+                <Style name="Preprocessor"
+                        index="19"
+                        fg="0,160,0"/>
+                <Style name="Preprocessor (inactive)"
+                        index="83"
+                        fg="132,160,132"/>
+                <Style name="Lexical error"
+                        index="20"
+                        fg="160,0,0"/>
+                <Style name="Lexical error (inactive)"
+                        index="84"
+                        fg="80,80,80"/>
+
+                <!-- Byte strings and byte characters -->
+                <Style name="Byte String"
+                        index="21"
+                        fg="0,50,255"/>
+                <Style name="Byte String (inactive)"
+                        index="85"
+                        fg="190,240,255"/>
+                <Style name="Raw Byte String"
+                        index="22"
+                        fg="0,50,255"/>
+                <Style name="Raw Byte String (inactive)"
+                        index="86"
+                        fg="190,240,255"/>
+                <Style name="Byte Character"
+                        index="23"
+                        fg="224,210,0"/>
+                <Style name="Byte Character (inactive)"
+                        index="87"
+                        fg="224,255,159"/>
+
+                <!-- System styles -->
+                <Style name="Selection"
+                        index="-99"
+                        bg="192,192,192"/>
+                <Style name="Active line"
+                        index="-98"
+                        bg="255,255,160"/>
+                <Style name="Breakpoint line"
+                        index="-2"
+                        bg="255,160,160"/>
+                <Style name="Debugger active line"
+                        index="-3"
+                        bg="160,160,255"/>
+                <Style name="Compiler error line"
+                        index="-4"
+                        bg="255,128,0"/>
+                <Keywords>
+                        <!-- Primary keywords and identifiers - strict keywords -->
+                        <Set index="0"
+                            value="as break const continue crate else enum extern false fn for if impl in
+                                   let loop match mod move mut pub ref return self Self static struct super 
+                                   trait true type unsafe use where while dyn"/>
+                        <!-- Built-in types -->
+                        <Set index="1"
+                            value="bool char i8 i16 i32 i64 u8 u16 u32 u64 isize usize f32 f64 str"/>
+                        <!-- Other keywords - reserved keywords -->
+                        <Set index="2"
+                            value="abstract become box do final macro override priv typeof unsized virtual
+                                   yield async await try"/>
+                        <!-- Keywords 4 - weak keywords-->
+                        <Set index="3"
+                            value="union 'static"/>
+                </Keywords>
+                <SampleCode value="lexer_rust.sample"
+                        breakpoint_line="20"
+                        debug_line="22"
+                        error_line="23"/>
+                <LanguageAttributes
+                    LineComment="//"
+                    DoxygenLineComment="///"
+                    StreamCommentStart="/*"
+                    StreamCommentEnd="*/"
+                    DoxygenStreamCommentStart="/**"
+                    DoxygenStreamCommentEnd="*/"
+                    BoxCommentStart="/* "
+                    BoxCommentMid=" * "
+                    BoxCommentEnd=" */"
+                    CaseSensitive="1"
+                    LexerCommentStyles="1,2,3,4,65,66,67,68"
+                    LexerCharacterStyles="15,23,79,87"
+                    LexerStringStyles="13,14,21,22,77,78,85,86"
+                    LexerPreprocessorStyles="19,83"/>
+        </Lexer>
+</CodeBlocks_lexer_properties>
