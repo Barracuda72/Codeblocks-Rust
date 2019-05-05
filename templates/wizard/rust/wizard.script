@@ -76,6 +76,8 @@ function OnLeave_RustPath(fwd)
             return false;
 
         // TODO: verify dependencies
+
+        RustPath = dir;
     }
     return true;
 }
