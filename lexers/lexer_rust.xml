@@ -88,12 +88,12 @@
                 <Style name="Lifetime (inactive)"
                         index="82"
                         fg="132,160,132"/>
-                <Style name="Preprocessor"
+                <Style name="Macro"
                         index="19"
-                        fg="0,160,0"/>
-                <Style name="Preprocessor (inactive)"
+                        fg="0,160,80"/>
+                <Style name="Macro (inactive)"
                         index="83"
-                        fg="132,160,132"/>
+                        fg="132,160,212"/>
                 <Style name="Lexical error"
                         index="20"
                         fg="160,0,0"/>
