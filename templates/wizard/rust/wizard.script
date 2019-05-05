@@ -117,9 +117,9 @@ function SetupProject(project)
     local pf = null;
     
     //setting make commands for project and targets
-    project.SetMakeCommandFor(mcBuild, _T("cargo build"));
+    project.SetMakeCommandFor(mcBuild, _T("cargo build --message-format short"));
     project.SetMakeCommandFor(mcCompileFile, _T("TODO this is not supported (yet)"));
-    project.SetMakeCommandFor(mcClean, _T("cargo clean"));
+    project.SetMakeCommandFor(mcClean, _T("cargo clean --message-format short"));
     project.SetMakeCommandFor(mcDistClean, _T("TODO this is not supported (yet)"));
 
     // enable compiler warnings (project-wide)
