@@ -84,10 +84,10 @@
                         fg="132,160,132"/>
                 <Style name="Lifetime"
                         index="18"
-                        fg="0,160,0"/>
+                        fg="80,160,0"/>
                 <Style name="Lifetime (inactive)"
                         index="82"
-                        fg="132,160,132"/>
+                        fg="212,160,132"/>
                 <Style name="Macro"
                         index="19"
                         fg="0,160,80"/>
