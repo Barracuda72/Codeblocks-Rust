@@ -114,7 +114,9 @@ function SetupProject(project)
 
     // Add generated files to project
     local full_filename = Wizard.GetProjectPath() + Wizard.GetProjectName() + _T("/src/") + file;
+    local toml_filename = Wizard.GetProjectPath() + Wizard.GetProjectName() + _T("/Cargo.toml");
     local pf = null;
+    project.AddFile(-1, toml_filename, false, false); // Don't add Cargo.toml to any targets and don't compile and link it
     
     //setting make commands for project and targets
     project.SetMakeCommandFor(mcBuild, _T("cargo build --message-format short"));
