@@ -98,15 +98,15 @@ function SetupProject(project)
     // create new crate
     if (RustCrateType == 0) // Binary
     {
-      type = _T("--bin");
-      file = _T("main.rs");
+        type = _T("--bin");
+        file = _T("main.rs");
     } else if (RustCrateType == 1) { // Library
-      type = _T("--lib");
-      file = _T("lib.rs");
+        type = _T("--lib");
+        file = _T("lib.rs");
     } else {
-      // Should not happen
-      type = _T("--unk");
-      file = _T("unk.rs");
+        // Should not happen
+        type = _T("--unk");
+        file = _T("unk.rs");
     }
     IO.Execute(_T("cargo init ") + type + _T(" ") + Wizard.GetProjectPath() + Wizard.GetProjectName());
 
@@ -135,13 +135,14 @@ function SetupProject(project)
         // enable generation of debugging symbols for target
         DebugSymbolsOn(debug_target, Wizard.GetCompilerID());
         
-	      //setting make commands for target
-	      debug_target.SetMakeCommandFor(mcBuild, _T("cargo build --message-format short"));
-    	  debug_target.SetMakeCommandFor(mcCompileFile, _T("TODO this is not supported (yet)"));
-	      debug_target.SetMakeCommandFor(mcClean, _T("cargo clean --message-format short"));
-    	  debug_target.SetMakeCommandFor(mcDistClean, _T("TODO this is not supported (yet)"));
+        //setting make commands for target
+        debug_target.SetMakeCommandFor(mcBuild, _T("cargo build --message-format short"));
+        debug_target.SetMakeCommandFor(mcCompileFile, _T("TODO this is not supported (yet)"));
+        debug_target.SetMakeCommandFor(mcClean, _T("cargo clean --message-format short"));
+        debug_target.SetMakeCommandFor(mcDistClean, _T("TODO this is not supported (yet)"));
 
-	      debug_target.SetOptionRelation(ortIncludeDirs, orUseParentOptionsOnly);    
+        debug_target.SetOptionRelation(ortIncludeDirs, orUseParentOptionsOnly);    
+
         pf = project.AddFile(Wizard.GetDebugName(), full_filename);
     }
 
@@ -159,11 +160,12 @@ function SetupProject(project)
 
         //setting make commands for target
         release_target.SetMakeCommandFor(mcBuild, _T("cargo build --release --message-format short"));
-    	  release_target.SetMakeCommandFor(mcCompileFile, _T("TODO this is not supported (yet)"));
-    	  release_target.SetMakeCommandFor(mcClean, _T("cargo clean --release --message-format short"));
-    	  release_target.SetMakeCommandFor(mcDistClean, _T("TODO this is not supported (yet)"));
+        release_target.SetMakeCommandFor(mcCompileFile, _T("TODO this is not supported (yet)"));
+        release_target.SetMakeCommandFor(mcClean, _T("cargo clean --release --message-format short"));
+        release_target.SetMakeCommandFor(mcDistClean, _T("TODO this is not supported (yet)"));
 
-    	  release_target.SetOptionRelation(ortIncludeDirs, orUseParentOptionsOnly);
+        release_target.SetOptionRelation(ortIncludeDirs, orUseParentOptionsOnly);
+
         if (pf == null)
           project.AddFile(Wizard.GetReleaseName(), full_filename);
         else
