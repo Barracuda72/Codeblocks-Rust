@@ -145,7 +145,7 @@
                                    trait true type unsafe use where while dyn"/>
                         <!-- Built-in types -->
                         <Set index="1"
-                            value="bool char i8 i16 i32 i64 u8 u16 u32 u64 isize usize f32 f64 str"/>
+                            value="bool char i8 i16 i32 i64 i128 u8 u16 u32 u64 u128 isize usize f32 f64 str"/>
                         <!-- Other keywords - reserved keywords -->
                         <Set index="2"
                             value="abstract become box do final macro override priv typeof unsized virtual
