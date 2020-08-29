@@ -78,10 +78,10 @@
                         fg="255,200,200"/>
                 <Style name="Identifier"
                         index="17"
-                        fg="0,160,0"/>
+                        fg="0,0,0"/>
                 <Style name="Identifier (inactive)"
                         index="81"
-                        fg="132,160,132"/>
+                        fg="200,200,200"/>
                 <Style name="Lifetime"
                         index="18"
                         fg="120,120,0"/>
