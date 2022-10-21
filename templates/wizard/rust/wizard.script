@@ -121,7 +121,7 @@ function SetupProject(project)
     //setting make commands for project and targets
     project.SetMakeCommandFor(mcBuild, _T("cargo build --message-format short"));
     project.SetMakeCommandFor(mcCompileFile, _T("TODO this is not supported (yet)"));
-    project.SetMakeCommandFor(mcClean, _T("cargo clean --message-format short"));
+    project.SetMakeCommandFor(mcClean, _T("cargo clean"));
     project.SetMakeCommandFor(mcDistClean, _T("TODO this is not supported (yet)"));
 
     // enable compiler warnings (project-wide)
@@ -142,7 +142,7 @@ function SetupProject(project)
         //setting make commands for target
         debug_target.SetMakeCommandFor(mcBuild, _T("cargo build --message-format short"));
         debug_target.SetMakeCommandFor(mcCompileFile, _T("TODO this is not supported (yet)"));
-        debug_target.SetMakeCommandFor(mcClean, _T("cargo clean --message-format short"));
+        debug_target.SetMakeCommandFor(mcClean, _T("cargo clean"));
         debug_target.SetMakeCommandFor(mcDistClean, _T("TODO this is not supported (yet)"));
 
         debug_target.SetOptionRelation(ortIncludeDirs, orUseParentOptionsOnly);    
@@ -165,7 +165,7 @@ function SetupProject(project)
         //setting make commands for target
         release_target.SetMakeCommandFor(mcBuild, _T("cargo build --release --message-format short"));
         release_target.SetMakeCommandFor(mcCompileFile, _T("TODO this is not supported (yet)"));
-        release_target.SetMakeCommandFor(mcClean, _T("cargo clean --release --message-format short"));
+        release_target.SetMakeCommandFor(mcClean, _T("cargo clean --release"));
         release_target.SetMakeCommandFor(mcDistClean, _T("TODO this is not supported (yet)"));
 
         release_target.SetOptionRelation(ortIncludeDirs, orUseParentOptionsOnly);
