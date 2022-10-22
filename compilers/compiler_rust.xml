@@ -10,8 +10,8 @@
             <Fallback path="C:\rust"/>
         </if>
         <else>
-            <Search path="~/.cargo"/>
-            <Fallback path="/usr/local/bin"/>
+            <Search path="/usr/"/>
+            <Fallback path="~/.cargo/"/>
         </else>
     </Path>
     <Path type="lib">
